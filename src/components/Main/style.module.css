@@ -1,0 +1,28 @@
+.main {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.weatherCard {
+	border: 1px solid black;
+	padding: 5%;
+}
+
+.weatherCardHeader {
+
+}
+
+.weatherCardBody {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.weatherCardBody ul {
+	list-style: none;
+	font-size: 1.2em;
+}
