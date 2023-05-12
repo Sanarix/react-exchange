@@ -8,7 +8,7 @@ const Footer = () => {
 
 	return (
 		<footer className={styles.footer}>
-			<div>
+			<div className={styles.owner}>
 				Disign and develop by <a href="https://korsakovla.web.app/">Leonid Korsakov</a>
 			</div>
 			<div>

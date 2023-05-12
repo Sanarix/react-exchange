@@ -24,3 +24,7 @@ yarn-error.log*
 
 # API
 weatherApi.json
+
+#firebase
+firbaseConfig.json
+.firebaserc

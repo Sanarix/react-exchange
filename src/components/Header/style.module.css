@@ -13,3 +13,21 @@
 .logo {
 	font-size: 1.8em;
 }
+
+@media (max-width: 740px) {
+	.header {
+		flex-direction: column;
+	}
+
+	.logo {
+		font-size: 1.2em;
+	}
+
+	nav {
+		font-size: 0.8em;
+	}
+
+	nav a {
+		text-decoration: underline;
+	}
+}
