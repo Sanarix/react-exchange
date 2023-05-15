@@ -9,6 +9,8 @@ const Main = () => {
 	const [weatherInfo, setWeatherInfo] = useState(null);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [seacrhSortedList, setSearchSortedList] = useState(null);
+	const CelciumCoefficient = 273.15;
+	const PressureCoefficient = 0.75;
 
 	function handler(e) {
 		const city = seacrhSortedList.filter((el) => 
@@ -83,15 +85,15 @@ const Main = () => {
 					<img className={styles.weatherCard_image} src={` https://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png`} alt="weather-icon" />
 					<ul className={styles.weatherCard_list}>
 						<li>Температура: {
-						Math.floor(weatherInfo.main.temp - 273.15)
+						Math.floor(weatherInfo.main.temp - CelciumCoefficient)
 						}{'\u00b0'}C
 						</li>
 						<li>Ощущается как: {
-						Math.floor(weatherInfo.main.feels_like - 273.15)
+						Math.floor(weatherInfo.main.feels_like - CelciumCoefficient)
 						}{'\u00b0'}C
 						</li>
 						<li>Влажность: {weatherInfo.main.humidity} %</li>
-						<li>Давление: {(weatherInfo.main.pressure * 0.75).toFixed()} мм.рт.ст.</li>
+						<li>Давление: {(weatherInfo.main.pressure * PressureCoefficient).toFixed()} мм.рт.ст.</li>
 						<li>Ветер: {Math.floor(weatherInfo.wind.speed)} м/с</li>
 						<li>Порывы ветра до: {Math.floor(weatherInfo.wind.gust) || 0}  м/с</li>
 						<li>Направление ветра: {getWindDir(weatherInfo.wind.deg)}</li>
