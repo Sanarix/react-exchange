@@ -2,16 +2,13 @@ import styles from './style.module.css';
 import { useState, useEffect } from 'react';
 import weatherConfig from '../../config/weatherApi.json';
 import cities from '../../cities/cities.json';
-import getWindDir from '../../functions/getWindDir';
-
+import WeatherCard from './WeatherCard';
 
 const Main = () => {
 	const [cityName, setCityName] = useState('');
 	const [weatherInfo, setWeatherInfo] = useState(null);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [seacrhSortedList, setSearchSortedList] = useState(null);
-	const CelciumCoefficient = 273.15;
-	const PressureCoefficient = 0.75;
 
 	function handler(e) {
 		const city = seacrhSortedList.filter((el) => 
@@ -65,28 +62,11 @@ const Main = () => {
 				</ul>
 			</div>
 			{weatherInfo && 
-				<div className={styles.weatherCard}>
-					<h1 className={styles.weatherCard_header}>{cityName}</h1>
-					<h2 className={styles.weatherCard_subheader}> Сейчас {weatherInfo.weather[0].description}
-					</h2>
-					<img className={styles.weatherCard_image} src={` https://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png`} alt="weather-icon" />
-					<ul className={styles.weatherCard_list}>
-						<li>Температура: {
-						Math.floor(weatherInfo.main.temp - CelciumCoefficient)
-						}{'\u00b0'}C
-						</li>
-						<li>Ощущается как: {
-						Math.floor(weatherInfo.main.feels_like - CelciumCoefficient)
-						}{'\u00b0'}C
-						</li>
-						<li>Влажность: {weatherInfo.main.humidity} %</li>
-						<li>Давление: {(weatherInfo.main.pressure * PressureCoefficient).toFixed()} мм.рт.ст.</li>
-						<li>Ветер: {Math.floor(weatherInfo.wind.speed)} м/с</li>
-						<li>Порывы ветра до: {Math.floor(weatherInfo.wind.gust) || 0}  м/с</li>
-						<li>Направление ветра: {getWindDir(weatherInfo.wind.deg)}</li>
-						<li>Процент облачности: {weatherInfo.clouds.all} %</li>
-					</ul>
-				</div>
+				<WeatherCard 
+				styles={styles} 
+				weatherInfo={weatherInfo}
+				cityName={cityName}
+				/>
 			}
 		</main>
 	)
