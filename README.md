@@ -1,2 +1,3 @@
-# react-exchange
-Сurrency exchange rate website
+# react-weather
+
+А simple app to see the weather outside the window
