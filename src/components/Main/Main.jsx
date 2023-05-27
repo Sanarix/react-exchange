@@ -61,31 +61,31 @@ const Main = () => {
 					value={searchQuery} 
 					placeholder='Поиск города'>
 				</input>
-				<ul id="cities-list"className={styles.citiesList}>
-					{seacrhSortedList && 
-					seacrhSortedList.map((el, i) => {
-						return (
-							<li key={i} onClick={handler}>
-								{el.name}
-							</li>
-						)
-					})
+					<ul id="cities-list"className={styles.citiesList}>
+						{seacrhSortedList && 
+						seacrhSortedList.map((el, i) => {
+							return (
+								<li key={i} onClick={handler}>
+									{el.name}
+								</li>
+							)
+						})
+						}
+						{
+							searchQuery &&
+							seacrhSortedList?.length === 0 &&
+							<li>Совпадений не найдено</li>
+						}
+					</ul>
+					</div>
+					{weatherInfo && 
+						<WeatherCard 
+						styles={styles} 
+						weatherInfo={weatherInfo}
+						cityName={cityName}
+						/>
 					}
-					{
-						searchQuery &&
-						seacrhSortedList?.length === 0 &&
-						<li>Совпадений не найдено</li>
-					}
-				</ul>
 
-				{weatherInfo && 
-				<WeatherCard 
-				styles={styles} 
-				weatherInfo={weatherInfo}
-				cityName={cityName}
-				/>
-			}
-			</div>
 		</main>
 		</>
 	)
