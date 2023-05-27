@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import weatherConfig from '../../config/weatherApi.json';
 import cities from '../../cities/cities.json';
 import WeatherCard from './WeatherCard';
+import Overlay from '../Overlay/Overlay';
 
 const Main = () => {
 	const [cityName, setCityName] = useState('');
 	const [weatherInfo, setWeatherInfo] = useState(null);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [seacrhSortedList, setSearchSortedList] = useState(null);
+	const [overlayShow, setOverlayShow] = useState(false);
 
 	function handler(e) {
 		const city = seacrhSortedList.filter((el) => 
@@ -24,8 +26,7 @@ const Main = () => {
 			.catch(err => {
 				throw new Error(err.message)
 			})
-			setSearchQuery('');
-			setSearchSortedList(null);
+			clear()
 	}
 
 		function searchHandler(value) {
@@ -36,14 +37,30 @@ const Main = () => {
 			}
 		}
 
+		function clear() {
+			setSearchQuery('');
+			setSearchSortedList(null);
+			setOverlayShow(false);
+		}
+
 		useEffect(() => {
 			searchHandler(searchQuery)
 		}, [searchQuery])
 
 	return (
+		<>
+		{overlayShow && 
+			<Overlay style={styles.overlay} handler={clear}/>
+		}
 		<main className={styles.main}>
 			<div className={styles.searchWrapper}>
-				<input className={styles.searchInput} onChange={(e) => {setSearchQuery(e.target.value)}} value={searchQuery} placeholder='Поиск города'></input>
+				<input 
+					className={styles.searchInput} 
+					onClick={() => {setOverlayShow(true)}}
+					onChange={(e) => {setSearchQuery(e.target.value)}} 
+					value={searchQuery} 
+					placeholder='Поиск города'>
+				</input>
 				<ul id="cities-list"className={styles.citiesList}>
 					{seacrhSortedList && 
 					seacrhSortedList.map((el, i) => {
@@ -60,15 +77,17 @@ const Main = () => {
 						<li>Совпадений не найдено</li>
 					}
 				</ul>
-			</div>
-			{weatherInfo && 
+
+				{weatherInfo && 
 				<WeatherCard 
 				styles={styles} 
 				weatherInfo={weatherInfo}
 				cityName={cityName}
 				/>
 			}
+			</div>
 		</main>
+		</>
 	)
 }
 export default Main;

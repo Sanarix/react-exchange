@@ -8,6 +8,7 @@
 	height: 40px;
 	background-color: #2D384A;
 	color: whitesmoke;
+	z-index: 100;
 }
 
 @media screen and (max-width: 740px) {
